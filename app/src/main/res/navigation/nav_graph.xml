@@ -8,11 +8,18 @@
     <fragment
         android:id="@+id/HomeFragment"
         android:name="com.example.lostfound.HomeFragment"
-        android:label="@string/second_fragment_label"
+        android:label="Home Fragment"
         tools:layout="@layout/fragment_home">
 
-<!--        <action-->
-<!--            android:id="@+id/action_SecondFragment_to_FirstFragment"-->
-<!--            app:destination="@id/FirstFragment" />-->
+        <action
+            android:id="@+id/action_HomeFragment_to_LocationChoiceFragment"
+            app:destination="@id/LocationChoiceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/LocationChoiceFragment"
+        android:name="com.example.lostfound.location.LocationChoiceFragment"
+        android:label="Location Choice Fragment"
+        tools:layout="@layout/fragment_location_choice">
     </fragment>
 </navigation>

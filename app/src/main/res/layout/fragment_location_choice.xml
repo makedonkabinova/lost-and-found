@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LocationChoiceFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".location.LocationChoiceFragment"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Add Image View -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/location_choice_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please choose location input choice"
+        android:textSize="@dimen/welcoming_texts_size"/>
+    <Button
+        android:id="@+id/custom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/button_default_margin"
+        android:text="Custom"
+        style="?attr/materialButtonOutlinedStyle"
+        />
+    <Button
+        android:id="@+id/device_location_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/button_default_margin"
+        android:text="Device location"
+        style="?attr/materialButtonOutlinedStyle"
+        />
 
-</FrameLayout>
+</LinearLayout>

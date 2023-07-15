@@ -43,10 +43,19 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //SPLASH SCREEN
     implementation 'androidx.core:core-splashscreen:1.0.0'
+
+    //FRAGMENT & NAVIGATION
+    implementation 'androidx.fragment:fragment-ktx:1.5.5'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    //MAPBOX
+    implementation 'com.mapbox.maps:android:10.14.1'
 }
