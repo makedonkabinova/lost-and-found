@@ -16,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.edit
+import androidx.navigation.fragment.findNavController
 import com.example.lostfound.Constants
 import com.example.lostfound.R
 import com.example.lostfound.databinding.FragmentLocationChoiceBinding
@@ -78,6 +79,9 @@ class LocationChoiceFragment : Fragment() {
                     requestLocationPermissions.launch(arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION))
             else //if at least one permission is allowed, get the location
                 getLocation()
+        }
+        binding.customButton.setOnClickListener {
+            findNavController().navigate(R.id.action_LocationChoiceFragment_to_MapFragment)
         }
     }
 

@@ -21,5 +21,17 @@
         android:name="com.example.lostfound.location.LocationChoiceFragment"
         android:label="Location Choice Fragment"
         tools:layout="@layout/fragment_location_choice">
+
+        <action
+            android:id="@+id/action_LocationChoiceFragment_to_MapFragment"
+            app:destination="@id/MapFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/MapFragment"
+        android:name="com.example.lostfound.location.MapFragment"
+        android:label="Map Fragment"
+        tools:layout="@layout/fragment_map">
+
     </fragment>
 </navigation>
