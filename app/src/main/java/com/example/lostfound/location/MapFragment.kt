@@ -5,21 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.lostfound.R
-import com.example.lostfound.databinding.CountriesDropdownBinding
 import com.example.lostfound.databinding.FragmentMapBinding
-import com.mapbox.geojson.Point
 import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
-import com.mapbox.maps.ViewAnnotationAnchor
-import com.mapbox.maps.viewannotation.ViewAnnotationManager
-import com.mapbox.maps.viewannotation.viewAnnotationOptions
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.util.Log
+import android.widget.Toast
+import androidx.annotation.DrawableRes
+import androidx.appcompat.content.res.AppCompatResources
+import com.example.lostfound.R
+import com.example.lostfound.utils.PreferenceManager
+import com.mapbox.geojson.Point
+import com.mapbox.maps.plugin.annotation.AnnotationPlugin
+import com.mapbox.maps.plugin.annotation.annotations
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager
+import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
+import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
+import com.mapbox.maps.plugin.gestures.addOnMapClickListener
 
 class MapFragment : Fragment() {
     private var _binding : FragmentMapBinding? = null
     private val binding get() = _binding!!
-    lateinit var mapView: MapView
-    lateinit var viewAnnotationManager: ViewAnnotationManager
+    private lateinit var mapView: MapView
+    private lateinit var preferenceManager: PreferenceManager
+    private lateinit var annotationPlugin: AnnotationPlugin
+    private lateinit var pointAnnotationManager: PointAnnotationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,39 +42,137 @@ class MapFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         mapView = binding.mapView
-        mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS)
-        viewAnnotationManager = binding.mapView.viewAnnotationManager
-        val viewAnnotation = viewAnnotationManager.addViewAnnotation(R.layout.countries_dropdown,
-            viewAnnotationOptions { geometry(Point.fromLngLat(41.8101, 21.0937)).anchor(ViewAnnotationAnchor.TOP) }
-        )
-        CountriesDropdownBinding.bind(viewAnnotation)
+        mapView.getMapboxMap().loadStyleUri(
+            Style.MAPBOX_STREETS
+        ) {
+            annotationPlugin = mapView.annotations //Get the annotation API from the MapView
+            pointAnnotationManager = annotationPlugin.createPointAnnotationManager() //Create a PointAnnotationManager to manage point annotations on the map
+            addAnnotationToMap()
+        }
+        preferenceManager = PreferenceManager.getInstance(requireContext())
         return binding.root
     }
 
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment MapFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            MapFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
+    /**
+     * Adds a point annotation with a custom icon to the map and enables updating its location on map click.
+     *
+     * If the initial location is not set, the map listens for a click event. Clicking the map updates the
+     * annotation's location to the clicked point's coordinates.
+     *
+     * @throws IllegalArgumentException if the provided context or drawable resource ID is invalid.
+     */
+    private fun addAnnotationToMap(){
+        try {
+            bitmapFromDrawableRes(
+                requireContext(),
+                R.drawable.map_pin
+            )?.let { icon ->
+                var point = preferenceManager.getLocationPoint()
+                if(point.longitude() == 0.0 && point.latitude() == 0.0){
+                    Toast.makeText(requireContext(), "Point is null", Toast.LENGTH_SHORT).show()
+                    mapView.getMapboxMap().addOnMapClickListener { p ->
+                        point = p
+                        val pointAnnotationOptions =
+                            PointAnnotationOptions() //Create a PointAnnotationOptions to define the properties of the point annotation
+                                .withPoint(point)
+                                .withIconImage(icon)
 
+                        //to prevent adding more markers, just updating one marker
+                        if(pointAnnotationManager.annotations.isEmpty())
+                            pointAnnotationManager.create(pointAnnotationOptions)
+                        else{
+                            val annotation = pointAnnotationManager.annotations[0]
+                            annotation.point = Point.fromLngLat(p.longitude(), p.latitude())
+                            pointAnnotationManager.update(annotation)
+                        }
+
+                        if (preferenceManager.saveLocation(point)){
+                            Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
+                        }
+                        true
+                    }
+                }
+                else{
+                    val pointAnnotationOptions =
+                        PointAnnotationOptions() //Create a PointAnnotationOptions to define the properties of the point annotation
+                            .withPoint(point)
+                            .withIconImage(icon)
+                    pointAnnotationManager.create(pointAnnotationOptions)
+
+                    mapView.getMapboxMap().addOnMapClickListener { p ->
+                        point = p
+                        val annotation = pointAnnotationManager.annotations[0]
+                        annotation.point = point
+                        pointAnnotationManager.update(annotation)
+
+                        if (preferenceManager.saveLocation(point)){
+                            Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
+                        }
+
+                        true
+                    }
+                }
+//                mapView.getMapboxMap().setCamera(cameraPosition) // Use easeCamera to smoothly animate the camera change
+            }
+        }catch (e: java.lang.IllegalArgumentException){
+            Log.e("AddAnnotationToMap", "IllegalArgumentException occurred: ${e.message}")
+        }
+    }
+
+    /**
+     * Converts a drawable resource specified by its resource ID to a Bitmap.
+     *
+     * @param context The context used to access the application's resources.
+     * @param resourceId The resource ID of the drawable to be converted to a Bitmap.
+     * @return A Bitmap representation of the drawable, or null if the input drawable is null.
+     */
+    private fun bitmapFromDrawableRes(context: Context, @DrawableRes resourceId: Int) =
+        convertDrawableToBitmap(AppCompatResources.getDrawable(context, resourceId))
+
+    /**
+     * Converts a Drawable to a Bitmap.
+     *
+     * @param sourceDrawable The input Drawable to be converted to a Bitmap.
+     * @return A Bitmap representation of the input Drawable, or null if the input is null.
+     */
+    private fun convertDrawableToBitmap(sourceDrawable: Drawable?): Bitmap?{
+        if(sourceDrawable == null)
+            return null
+
+        // If the sourceDrawable is already a BitmapDrawable, simply return the underlying bitmap
+        return if (sourceDrawable is BitmapDrawable)
+            sourceDrawable.bitmap
+        else{
+            // If the sourceDrawable is not a BitmapDrawable, create a new Drawable from its constant state
+            // and make it mutable so that it can be modified
+            val constantState = sourceDrawable.constantState ?: return null
+            //making a copy of sourceDrawable into drawable
+            val drawable = constantState.newDrawable().mutate()
+
+            // Create a new Bitmap with the same dimensions as the Drawable
+            val bitmap = Bitmap.createBitmap(
+                drawable.intrinsicWidth,
+                drawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
+
+            // Create a Canvas to draw the Drawable onto the Bitmap
+            val canvas = Canvas(bitmap)
+
+            // Set the bounds of the Drawable to match the dimensions of the Canvas
+            drawable.setBounds(0, 0, canvas.width, canvas.height)
+
+            // Draw the Drawable onto the Canvas, which will be reflected in the Bitmap
+            drawable.draw(canvas)
+
+            // Return the resulting Bitmap
+            bitmap
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

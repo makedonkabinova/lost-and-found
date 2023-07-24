@@ -17,9 +17,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
-import com.example.lostfound.Constants
+import com.example.lostfound.utils.Constants
+import com.example.lostfound.core.MyApplication
 import com.example.lostfound.R
 import com.example.lostfound.databinding.FragmentLocationChoiceBinding
+import com.example.lostfound.utils.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
@@ -28,7 +30,8 @@ class LocationChoiceFragment : Fragment() {
     private var _binding : FragmentLocationChoiceBinding? = null
     private val binding get() = _binding!!
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var myApplication: MyApplication
+    private lateinit var preferenceManager: PreferenceManager
 
     private val requestLocationPermissions: ActivityResultLauncher<Array<String>> =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
@@ -52,7 +55,7 @@ class LocationChoiceFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = requireActivity().getSharedPreferences(Constants.MY_PREFERENCES, Context.MODE_PRIVATE)
+        preferenceManager = PreferenceManager.getInstance(requireContext())
     }
 
     override fun onCreateView(
@@ -95,10 +98,7 @@ class LocationChoiceFragment : Fragment() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             //if location is not null, put the info in the shared preferences
             location?.let {
-                sharedPreferences.edit {
-                    putFloat(Constants.LATITUDE, it.latitude.toFloat())
-                    putFloat(Constants.LONGITUDE, it.longitude.toFloat())
-                }
+                preferenceManager.saveLocation(it)
                 Toast.makeText(binding.root.context, binding.root.context.getString(R.string.location_fetch_success_msg), Toast.LENGTH_SHORT).show()
             }
 

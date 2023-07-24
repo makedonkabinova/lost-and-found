@@ -1,4 +1,4 @@
-package com.example.lostfound
+package com.example.lostfound.utils
 
 object Constants {
     const val MY_PREFERENCES: String = "MY_PREFERENCES"

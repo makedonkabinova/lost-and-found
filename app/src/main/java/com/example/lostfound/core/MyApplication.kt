@@ -1,4 +1,4 @@
-package com.example.lostfound
+package com.example.lostfound.core
 
 import android.app.Application
 
