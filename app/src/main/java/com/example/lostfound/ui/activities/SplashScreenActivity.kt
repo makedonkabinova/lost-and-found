@@ -1,11 +1,9 @@
-package com.example.lostfound
+package com.example.lostfound.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import com.example.lostfound.databinding.ActivitySplashScreenBinding
 
 class SplashScreenActivity : AppCompatActivity() {

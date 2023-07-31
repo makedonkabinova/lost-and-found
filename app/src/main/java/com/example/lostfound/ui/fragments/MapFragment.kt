@@ -1,4 +1,4 @@
-package com.example.lostfound.location
+package com.example.lostfound.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

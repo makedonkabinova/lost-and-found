@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".location.LocationChoiceFragment"
+    tools:context=".ui.fragments.LocationChoiceFragment"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -29,6 +29,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/button_default_margin"
         android:text="Device location"
+        style="?attr/materialButtonOutlinedStyle"
+        />
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/button_default_margin"
+        android:text="Next"
         style="?attr/materialButtonOutlinedStyle"
         />
 

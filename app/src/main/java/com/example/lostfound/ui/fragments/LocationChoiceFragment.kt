@@ -1,9 +1,7 @@
-package com.example.lostfound.location
+package com.example.lostfound.ui.fragments
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -15,9 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.content.edit
 import androidx.navigation.fragment.findNavController
-import com.example.lostfound.utils.Constants
 import com.example.lostfound.core.MyApplication
 import com.example.lostfound.R
 import com.example.lostfound.databinding.FragmentLocationChoiceBinding
@@ -85,6 +81,9 @@ class LocationChoiceFragment : Fragment() {
         }
         binding.customButton.setOnClickListener {
             findNavController().navigate(R.id.action_LocationChoiceFragment_to_MapFragment)
+        }
+        binding.nextButton.setOnClickListener {
+            findNavController().navigate(R.id.action_LocationChoiceFragment_to_HomeFragment)
         }
     }
 

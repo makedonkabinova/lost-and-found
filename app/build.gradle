@@ -60,4 +60,7 @@ dependencies {
     implementation ('com.mapbox.maps:android:10.14.1'){
         exclude group: 'group_name', module: 'module_name'
     }
+
+    //MATERIAL DESIGN
+    implementation 'com.google.android.material:material:1.9.0'
 }

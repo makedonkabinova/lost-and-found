@@ -1,17 +1,13 @@
-package com.example.lostfound
+package com.example.lostfound.ui.activities
 
 import android.os.Bundle
-import android.os.Handler
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.splashscreen.SplashScreen
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.lostfound.R
 import com.example.lostfound.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

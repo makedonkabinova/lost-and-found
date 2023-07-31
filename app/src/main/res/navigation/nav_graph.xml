@@ -3,35 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/HomeFragment">
+    app:startDestination="@id/WelcomeFragment">
 
     <fragment
-        android:id="@+id/HomeFragment"
-        android:name="com.example.lostfound.HomeFragment"
+        android:id="@+id/WelcomeFragment"
+        android:name="com.example.lostfound.ui.fragments.WelcomeFragment"
         android:label="Home Fragment"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_welcome">
 
         <action
-            android:id="@+id/action_HomeFragment_to_LocationChoiceFragment"
+            android:id="@+id/action_WelcomeFragment_to_LocationChoiceFragment"
             app:destination="@id/LocationChoiceFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/LocationChoiceFragment"
-        android:name="com.example.lostfound.location.LocationChoiceFragment"
+        android:name="com.example.lostfound.ui.fragments.LocationChoiceFragment"
         android:label="Location Choice Fragment"
         tools:layout="@layout/fragment_location_choice">
 
         <action
             android:id="@+id/action_LocationChoiceFragment_to_MapFragment"
             app:destination="@id/MapFragment"/>
+        <action
+            android:id="@+id/action_LocationChoiceFragment_to_HomeFragment"
+            app:destination="@+id/HomeFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/MapFragment"
-        android:name="com.example.lostfound.location.MapFragment"
+        android:name="com.example.lostfound.ui.fragments.MapFragment"
         android:label="Map Fragment"
         tools:layout="@layout/fragment_map">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.example.lostfound.ui.fragments.HomeFragment"
+        android:label="Home Fragment"
+        tools:layout="@layout/fragment_home">
 
     </fragment>
 </navigation>
