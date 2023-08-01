@@ -45,18 +45,22 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val carouselManager = CarouselLayoutManager()
-        carouselManager.setCarouselStrategy(MultiBrowseCarouselStrategy())
-        binding.carouselRecyclerView.layoutManager = carouselManager
-//        binding.carouselRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val adapter = Adapter(items, object:Adapter.MyOnClick{
+        binding.carouselLostRecyclerView.layoutManager = CarouselLayoutManager()
+        val adapterLost = Adapter(items, object:Adapter.MyOnClick{
             override fun onClick(p0: View?, pos:Int) {
                 Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
             }
         })
-        binding.carouselRecyclerView.adapter = adapter
+        binding.carouselLostRecyclerView.adapter = adapterLost
+        binding.carouselFoundRecyclerView.layoutManager = CarouselLayoutManager()
+        val adapterFound = Adapter(items, object:Adapter.MyOnClick{
+            override fun onClick(p0: View?, pos:Int) {
+                Toast.makeText(requireContext(), "clicked", Toast.LENGTH_SHORT).show()
+            }
+        })
+        binding.carouselFoundRecyclerView.adapter = adapterFound
         val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.carouselRecyclerView)
+        //snapHelper.attachToRecyclerView(binding.carouselRecyclerView)
         return binding.root
     }
 
