@@ -1,6 +1,5 @@
 package com.example.lostfound.data.models
 
-import com.example.lostfound.R
 import java.util.Date
 import java.util.UUID
 

@@ -1,9 +1,22 @@
 package com.example.lostfound.core
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MyApplication : Application() {
+    lateinit var database : FirebaseFirestore
+    override fun onCreate() {
+        super.onCreate()
+        connectToDb()
+    }
 
+    private fun connectToDb(){
+        FirebaseApp.initializeApp(this)
+        database = Firebase.firestore
+    }
     companion object {
         // Define a HashMap to store country names and their coordinates
         val countriesAvailable = HashMap<String, Pair<Double, Double>>()

@@ -10,9 +10,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.helper.widget.Carousel
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.example.lostfound.AddItemFragment
 import com.example.lostfound.R
+import com.example.lostfound.SettingsFragment
 import com.example.lostfound.data.models.Item
 import com.example.lostfound.data.models.Type
 import com.example.lostfound.databinding.FragmentHomeBinding
@@ -66,5 +70,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

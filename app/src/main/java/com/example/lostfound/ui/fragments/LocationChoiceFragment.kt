@@ -2,6 +2,7 @@ package com.example.lostfound.ui.fragments
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.lostfound.core.MyApplication
 import com.example.lostfound.R
 import com.example.lostfound.databinding.FragmentLocationChoiceBinding
+import com.example.lostfound.ui.activities.MainActivity
 import com.example.lostfound.utils.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -83,8 +85,10 @@ class LocationChoiceFragment : Fragment() {
             findNavController().navigate(R.id.action_LocationChoiceFragment_to_MapFragment)
         }
         binding.nextButton.setOnClickListener {
-            findNavController().navigate(R.id.action_LocationChoiceFragment_to_HomeFragment)
-        }
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()        }
     }
 
     private fun getLocation(){

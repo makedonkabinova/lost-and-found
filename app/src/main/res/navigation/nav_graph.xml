@@ -37,12 +37,4 @@
         tools:layout="@layout/fragment_map">
 
     </fragment>
-
-    <fragment
-        android:id="@+id/HomeFragment"
-        android:name="com.example.lostfound.ui.fragments.HomeFragment"
-        android:label="Home Fragment"
-        tools:layout="@layout/fragment_home">
-
-    </fragment>
 </navigation>

@@ -19,7 +19,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         // Start the main activity after a certain delay
         val splashScreenDuration = 3000 // 3 seconds
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, SetupActivity::class.java)
 
         Thread {
             Thread.sleep(splashScreenDuration.toLong())
