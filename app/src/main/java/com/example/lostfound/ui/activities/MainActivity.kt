@@ -3,8 +3,7 @@ package com.example.lostfound.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import com.example.lostfound.AddItemFragment
+import com.example.lostfound.ui.fragments.AddItemFragment
 import com.example.lostfound.R
 import com.example.lostfound.SettingsFragment
 import com.example.lostfound.databinding.ActivityMainBinding

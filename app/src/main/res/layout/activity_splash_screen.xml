@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Lost &amp; Found"
             android:layout_marginTop="20dp"
-            android:textColor="@color/brunswick_green"
+            android:textColor="@color/deep_sea_green"
             android:textSize="26dp"
             android:textStyle="bold"/>
     </LinearLayout>

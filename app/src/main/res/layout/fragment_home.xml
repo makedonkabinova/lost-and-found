@@ -33,7 +33,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:text="View more"
-                    android:textColor="@color/tangerine"
+                    android:textColor="@color/spiced_pumpkin"
                     android:textSize="15sp"/>
             </RelativeLayout>
 
@@ -65,7 +65,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:text="View more"
-                    android:textColor="@color/tangerine"
+                    android:textColor="@color/spiced_pumpkin"
                     android:textSize="15sp"/>
             </RelativeLayout>
 

@@ -1,30 +1,18 @@
 package com.example.lostfound.ui.fragments
 
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.helper.widget.Carousel
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.example.lostfound.AddItemFragment
 import com.example.lostfound.R
-import com.example.lostfound.SettingsFragment
 import com.example.lostfound.data.models.Item
 import com.example.lostfound.data.models.Type
 import com.example.lostfound.databinding.FragmentHomeBinding
 import com.example.lostfound.ui.adapters.Adapter
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.carousel.CarouselLayoutManager
-import com.google.android.material.carousel.MultiBrowseCarouselStrategy
-import com.google.android.material.circularreveal.CircularRevealHelper.Strategy
 import java.util.*
 
 class HomeFragment : Fragment() {

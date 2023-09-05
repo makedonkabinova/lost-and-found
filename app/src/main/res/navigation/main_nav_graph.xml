@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/AddItemFragment"
-        android:name="com.example.lostfound.AddItemFragment"
+        android:name="com.example.lostfound.ui.fragments.AddItemFragment"
         android:label="Add Item Fragment"
         tools:layout="@layout/fragment_add_item">
 
