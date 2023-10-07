@@ -1,12 +1,16 @@
 package com.example.lostfound.ui.fragments
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
+import com.example.lostfound.R
 import com.example.lostfound.databinding.FragmentAddItemBinding
+import com.google.api.Distribution.BucketOptions.Linear
 
 class AddItemFragment : Fragment() {
     private var _binding: FragmentAddItemBinding? = null
@@ -19,9 +23,21 @@ class AddItemFragment : Fragment() {
 
     private fun setOnClickListeners(){
         binding.selectImageView.setOnClickListener {
-            Toast.makeText(requireContext(), "ImageView clicked", Toast.LENGTH_SHORT).show()
+            createPhotoPickerDialog()
         }
     }
+
+    private fun createPhotoPickerDialog(){
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.photo_picker_dialog)
+        dialog.findViewById<LinearLayout>(R.id.gallery_photo).setOnClickListener {
+            Toast.makeText(requireContext(), "Gallery select clicked", Toast.LENGTH_SHORT).show()
+        }
+        dialog.findViewById<LinearLayout>(R.id.camera_photo).setOnClickListener {
+            Toast.makeText(requireContext(), "Take with camera clicked", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

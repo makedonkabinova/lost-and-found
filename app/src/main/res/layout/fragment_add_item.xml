@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/select_phone_icon"
+            android:src="@drawable/insert_photo_icon"
             android:scaleType="center"
             app:layout_constraintTop_toBottomOf="@id/descriptionEditText"
             app:layout_constraintStart_toStartOf="parent"
